@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="my_world">
+     <!-- ⏱ ROS 시간 연동 -->
+    <plugin name="gazebo_ros_init" filename="libgazebo_ros_init.so"/>
+    <plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+
+
+    <!-- 🌞 기본 태양광 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- 🧱 바닥 -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- 📷 Gazebo GUI 카메라 (필수) -->
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>-5 0 10 0 0.785 0</pose> 
+      </camera>
+    </gui>
+
+    <!-- 📦 고정 박스 -->
+    <model name="box1">
+      <static>true</static>
+      <pose>3 5 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+    <!-- 📦 고정 박스 -->
+    <model name="box2">
+      <static>true</static>
+      <pose>3 -5 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+    <!-- 📦 고정 박스3 -->
+    <model name="box3">
+      <static>true</static>
+      <pose>5 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 5 1</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>
