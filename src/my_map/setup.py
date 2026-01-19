@@ -16,12 +16,18 @@ def package_files(directory):
             paths.append((install_path, [file_path]))
     return paths
 
-# data_files 기본 리스트
-data_files = [
+# data_files 기본 리스트 + Nav2 추가 
+data_files=[
     ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
     ('share/' + package_name, ['package.xml']),
-    (os.path.join('share', package_name, 'launch'), glob('launch/*.[pxy][yma]*')),
+    # Launch 파일들 (py, xml, yaml 모두 포함 가능)
+    (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+    # 월드 파일
     (os.path.join('share', package_name, 'worlds'), glob('worlds/*')),
+    # 지도 파일 (.yaml, .pgm)
+    (os.path.join('share', package_name, 'maps'), glob('maps/*')),
+    # Nav2 파라미터 파일 (.yaml)
+    (os.path.join('share', package_name, 'params'), glob('params/*')),
 ]
 
 # models 폴더의 파일들을 재귀적으로 추가
