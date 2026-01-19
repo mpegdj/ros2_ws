@@ -122,14 +122,14 @@ controller_server:
     
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
-      required_movement_radius: 0.5
+      required_movement_radius: 0.2
       movement_time_allowance: 10.0
       
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.2
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.1
+      yaw_goal_tolerance: 0.1
       
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
@@ -195,7 +195,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.2
+        inflation_radius: 0.12
         
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"

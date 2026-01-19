@@ -23,68 +23,33 @@
       </camera>
     </gui>
 
-    <!-- 📦 고정 박스 -->
-    <model name="box1">
+    <model name="nw_cube_1"><static>true</static><pose>-1.5 1.5 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></collision></link></model>
+    <model name="nw_cube_2"><static>true</static><pose>-0.5 1.5 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></collision></link></model>
+    <model name="nw_cube_3"><static>true</static><pose>-1.5 0.5 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></collision></link></model>
+    <model name="nw_cube_4"><static>true</static><pose>-0.5 0.5 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.5 0.5 0.3</size></box></geometry></collision></link></model>
+
+    <model name="block_ne">
       <static>true</static>
-      <pose>9 0 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
+      <pose>1.0 1.0 0.15 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></collision><visual name="v"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></visual></link>
     </model>
-    <!-- 📦 고정 박스 -->
-    <model name="box2">
+
+    <model name="block_sw">
       <static>true</static>
-      <pose>3 0 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
+      <pose>-1.0 -1.0 0.15 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></collision><visual name="v"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></visual></link>
     </model>
-    <!-- 📦 고정 박스3 -->
-    <model name="box3">
+
+    <model name="block_se">
       <static>true</static>
-      <pose>-3 0 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1 5 1</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
+      <pose>1.0 -1.0 0.15 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></collision><visual name="v"><geometry><box><size>1.5 1.5 0.3</size></box></geometry></visual></link>
     </model>
-  </world>
+
+    <model name="fence_top"><static>true</static><pose>0 2.25 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>4.55 0.05 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>4.55 0.05 0.3</size></box></geometry></collision></link></model>
+    <model name="fence_bottom"><static>true</static><pose>0 -2.25 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>4.55 0.05 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>4.55 0.05 0.3</size></box></geometry></collision></link></model>
+    <model name="fence_left"><static>true</static><pose>-2.25 0 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.05 4.55 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.05 4.55 0.3</size></box></geometry></collision></link></model>
+    <model name="fence_right"><static>true</static><pose>2.25 0 0.15 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.05 4.55 0.3</size></box></geometry></visual><collision name="c"><geometry><box><size>0.05 4.55 0.3</size></box></geometry></collision></link></model>
+
+ </world>
 </sdf>
