@@ -1,26 +1,21 @@
 <?xml version="1.0"?>
 <robot name="diffbot">
 
-  <!-- 색상 정의 -->
   <material name="grey"> <color rgba="0.5 0.5 0.5 1.0"/> </material>
   <material name="black"> <color rgba="0.0 0.0 0.0 1.0"/> </material>
 
-  <!-- ================= BASE ================= -->
-  <!-- SDF의 base_link pose (0 0 0.07) 반영 -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0.07" rpy="0 0 0"/>
-      <geometry> <box size="0.3 0.2 0.1"/> </geometry>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <geometry> <box size="0.2 0.1 0.05"/> </geometry>
       <material name="grey"/>
     </visual>
   </link>
 
-  <!-- ================= LEFT WHEEL ================= -->
-  <!-- SDF pose(0.1 0.1 0.05) 반영 -->
   <link name="left_wheel_link">
     <visual>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
-      <geometry> <cylinder radius="0.05" length="0.02"/> </geometry>
+      <geometry> <cylinder radius="0.025" length="0.02"/> </geometry>
       <material name="black"/>
     </visual>
   </link>
@@ -28,16 +23,14 @@
   <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="left_wheel_link"/>
-    <origin xyz="0.1 0.1 0.05" rpy="0 0 0"/>
+    <origin xyz="0.05 0.06 0.025" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
-  <!-- ================= RIGHT WHEEL ================= -->
-  <!-- SDF pose(0.1 -0.1 0.05) 반영 -->
   <link name="right_wheel_link">
     <visual>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
-      <geometry> <cylinder radius="0.05" length="0.02"/> </geometry>
+      <geometry> <cylinder radius="0.025" length="0.02"/> </geometry>
       <material name="black"/>
     </visual>
   </link>
@@ -45,12 +38,10 @@
   <joint name="right_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="right_wheel_link"/>
-    <origin xyz="0.1 -0.1 0.05" rpy="0 0 0"/>
+    <origin xyz="0.05 -0.06 0.025" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
-  <!-- ================= CASTER (BACK SUPPORT) ================= -->
-  <!-- SDF pose(-0.15 0 0.015) 반영 -->
   <link name="caster_link">
     <visual>
       <geometry> <sphere radius="0.025"/> </geometry>
@@ -61,13 +52,12 @@
   <joint name="caster_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_link"/>
-    <origin xyz="-0.15 0 0.015" rpy="0 0 0"/>
+    <origin xyz="-0.08 0 0.025" rpy="0 0 0"/>
   </joint>
 
-  <!-- ================= CAMERA (FRONT TOP) ================= -->
-  <!-- SDF pose(0.15 0 0.12) 반영 -->
   <link name="camera_link">
     <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry> <box size="0.02 0.05 0.02"/> </geometry>
       <material name="black"/>
     </visual>
@@ -76,12 +66,12 @@
   <joint name="camera_joint" type="fixed">
     <parent link="base_link"/>
     <child link="camera_link"/>
-    <origin xyz="0.15 0 0.12" rpy="0 0 0"/>
+    <origin xyz="0.1 0 0.08" rpy="0 0 0"/>
   </joint>
-  <!-- ================= LIDAR (Top Center) ================= -->
+
   <link name="base_scan">
     <visual>
-      <!-- 올바른 URDF 형식: 속성(Attribute) 사용 -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry> <cylinder radius="0.02" length="0.04"/> </geometry> 
       <material name="black"/>
     </visual>
@@ -90,7 +80,7 @@
   <joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_scan"/>
-    <!-- SDF의 pose (0 0 0.17) 반영 -->
-    <origin xyz="0 0 0.17" rpy="0 0 0"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
   </joint>
+
 </robot>
