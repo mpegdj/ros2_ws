@@ -28,8 +28,8 @@ amcl:
     # 모션 노이즈 파라미터 (낮을수록 정확)
     alpha1: 0.2
     alpha2: 0.2
-    alpha3: 0.2
-    alpha4: 0.2
+    alpha3: 0.3
+    alpha4: 0.3
     alpha5: 0.2
     
     # 파티클 필터
@@ -51,7 +51,7 @@ amcl:
     
     # 업데이트 임계값 (낮을수록 자주 업데이트)
     update_min_d: 0.05
-    update_min_a: 0.08
+    update_min_a: 0.05
     resample_interval: 1   # 매번 샘플링 수행
     # 위치 저장
     save_pose_rate: 0.05
@@ -128,20 +128,34 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.03
-      yaw_goal_tolerance: 0.05
+      xy_goal_tolerance: 0.05
+      yaw_goal_tolerance: 0.1
       
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: true
       TrajectoryStaticsCritic.scale: 1.0
+      # 1. 촘촘한 충돌 검사 (순간이동/벽뚫기 방지 핵심)
+
+      # 2. 회전 및 주행 속도 제한 (ㄷ자 코너 주행 안정화)
+      acc_lim_x: 1.0         # 급출발 방지
+
+      # 3. 가중치 설정 (장애물 방어 vs 경로 추종 밸런스)
+      BaseObstacleCritic.scale: 15.0  # 벽에 대한 공포심 (가장 중요)
+      PathAlignCritic.scale: 20.0     # 글로벌 경로를 따라가는 힘
+      PathDistCritic.scale: 20.0      # 경로와의 거리 유지
+      GoalAlignCritic.scale: 5.0      # 목적지로만 달려드는 성향 억제
+      
+      # 회전 시 내륜차/스윙 반경 보정 (항아리형 footprint 효과)
+      scaling_speed: 0.2
+      max_scaling_factor: 0.2
       
       # 속도 제한
       min_vel_x: 0.0
       min_vel_y: 0.0
-      max_vel_x: 0.08
+      max_vel_x: 0.1
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 0.5
       min_speed_xy: 0.05
       max_speed_xy: 0.2
       min_speed_theta: 0.0
@@ -166,7 +180,7 @@ controller_server:
       
       # Critics 설정
       critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      BaseObstacle.scale: 20.0
+      # BaseObstacle.scale: 15.0
       PathAlign.scale: 15.0
       PathDist.scale: 15.0
       PathAlign.forward_point_distance: 0.1
@@ -197,8 +211,8 @@ local_costmap:
       
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 1.5
-        inflation_radius: 0.15
+        cost_scaling_factor: 10.0
+        inflation_radius: 0.13
         
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
@@ -231,7 +245,7 @@ global_costmap:
       publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_link
-      robot_radius: 0.1
+      footprint: "[ [0.10, 0.06], [0.10, -0.06], [0.0, -0.07], [-0.10, -0.06], [-0.10, 0.06], [0.0, 0.07] ]"
       resolution: 0.01
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -258,7 +272,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 5.0
-        inflation_radius: 0.15
+        inflation_radius: 0.2
         
       always_send_full_costmap: true
 
